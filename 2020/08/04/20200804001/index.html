@@ -9,7 +9,7 @@
     
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    categories |  修渡
+    String和StringBuilder哪个更高效 |  修渡
   </title>
   <meta name="generator" content="hexo-theme-ayer">
   
@@ -44,8 +44,8 @@
     <main class="content on">
       <section class="outer">
   <article
-  id="page-"
-  class="article article-type-page"
+  id="post-20200804001"
+  class="article article-type-post"
   itemscope
   itemprop="blogPost"
   data-scroll-reveal
@@ -55,15 +55,57 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  categories
+  String和StringBuilder哪个更高效
 </h1>
  
 
     </header>
-       
+     
+    <div class="article-meta">
+      <a href="/2020/08/04/20200804001/" class="article-date">
+  <time datetime="2020-08-04T06:03:03.000Z" itemprop="datePublished">2020-08-04</time>
+</a>   
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">277</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">1 分钟</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+
+
+
+  
     <div class="article-entry" itemprop="articleBody">
        
-   
+  <blockquote>
+<p>String和StringBuilder做拼接时，我们最初可能认为String的效率低，做字符串拼接要用StringBuilder，其实经过jdk的不断升级，对于字符串的操作也进行了优化。</p>
+</blockquote>
+<p>对于</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">String a &#x3D; “1” + “2”；</span><br></pre></td></tr></table></figure>
+<p>编译器会自动将String转成StringBuilder的append操作，如此这般就变成了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">StringBuilder sb &#x3D; new StringBuilder(&quot;&quot;);  </span><br><span class="line">sb.append(&quot;1&quot;).append(&quot;2&quot;);</span><br></pre></td></tr></table></figure>
+<p>这样就跟我们自己手动写StringBuilder相同了。</p>
+<p>但是为什么还要区分String和StringBuilder呢？一起来看看下面这种情况</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">第一种：</span><br><span class="line">String a &#x3D; &quot;&quot;;</span><br><span class="line">for (int i &#x3D; 0; i &lt; 10000; i++) &#123;</span><br><span class="line">    a &#x3D; a + &quot;x&quot;;</span><br><span class="line">&#125;</span><br><span class="line">第二种：</span><br><span class="line">StringBuilder sb &#x3D; &quot;&quot;;</span><br><span class="line">for (int i &#x3D; 0; i &lt; 10000; i++) &#123;</span><br><span class="line">    sb.append(&quot;x&quot;);</span><br><span class="line">&#125;</span><br><span class="line">String a &#x3D; sb.toString();</span><br></pre></td></tr></table></figure>
+<p>以上第一种代码实际编译之后的代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">String a &#x3D; &quot;&quot;;</span><br><span class="line">for (int i &#x3D; 0; i &lt; 10000; i++) &#123;</span><br><span class="line">    StringBuilder sb &#x3D; new StringBuilder(&quot;&quot;);</span><br><span class="line">    sb.append(a).append(&quot;x&quot;);</span><br><span class="line">    a &#x3D; sb.toString();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>由此可以看出for循环中不断的创建对象，消耗内存和时间，效率低下，因此使用StringBuilder更高效。</p>
+ 
       <!-- reward -->
       
     </div>
@@ -125,17 +167,29 @@
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://moqilove.cn/categories/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://moqilove.cn/2020/08/04/20200804001/" alt="微信分享二维码">
     </div>
 </div>
 
 <div id="share-mask"></div>  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%BC%96%E7%A8%8B-java/" rel="tag">编程, java</a></li></ul>
+
     </footer>
   </div>
 
    
+  <nav class="article-nav">
+    
+    
+      <a href="/2020/08/03/20200803002/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">第一篇文章</div>
+      </a>
+    
+  </nav>
+
   
-   
+     
 </article>
 
 </section>
@@ -264,6 +318,23 @@
 <script src="/js/lazyload.min.js"></script>
 
 <!-- Tocbot -->
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: 'main',
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto'
+  });
+</script>
 
 <script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
