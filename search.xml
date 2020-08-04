@@ -24,7 +24,8 @@
 <p>由此可以看出for循环中不断的创建对象，消耗内存和时间，效率低下，因此使用StringBuilder更高效。</p>
 ]]></content>
       <tags>
-        <tag>编程, java</tag>
+        <tag>编程</tag>
+        <tag>java</tag>
       </tags>
   </entry>
 </search>
