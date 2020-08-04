@@ -119,27 +119,7 @@
   <time datetime="2020-08-04T06:03:03.000Z" itemprop="datePublished">2020-08-04</time>
 </a>    
     </div>
-      
-    <div class="article-entry" itemprop="articleBody">
        
-  <blockquote>
-<p>String和StringBuilder做拼接时，我们最初可能认为String的效率低，做字符串拼接要用StringBuilder，其实经过jdk的不断升级，对于字符串的操作也进行了优化。</p>
-</blockquote>
-<p>对于</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">String a &#x3D; “1” + “2”；</span><br></pre></td></tr></table></figure>
-<p>编译器会自动将String转成StringBuilder的append操作，如此这般就变成了</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">StringBuilder sb &#x3D; new StringBuilder(&quot;&quot;);  </span><br><span class="line">sb.append(&quot;1&quot;).append(&quot;2&quot;);</span><br></pre></td></tr></table></figure>
-<p>这样就跟我们自己手动写StringBuilder相同了。</p>
-<p>但是为什么还要区分String和StringBuilder呢？一起来看看下面这种情况</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">第一种：</span><br><span class="line">String a &#x3D; &quot;&quot;;</span><br><span class="line">for (int i &#x3D; 0; i &lt; 10000; i++) &#123;</span><br><span class="line">    a &#x3D; a + &quot;x&quot;;</span><br><span class="line">&#125;</span><br><span class="line">第二种：</span><br><span class="line">StringBuilder sb &#x3D; &quot;&quot;;</span><br><span class="line">for (int i &#x3D; 0; i &lt; 10000; i++) &#123;</span><br><span class="line">    sb.append(&quot;x&quot;);</span><br><span class="line">&#125;</span><br><span class="line">String a &#x3D; sb.toString();</span><br></pre></td></tr></table></figure>
-<p>以上第一种代码实际编译之后的代码如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">String a &#x3D; &quot;&quot;;</span><br><span class="line">for (int i &#x3D; 0; i &lt; 10000; i++) &#123;</span><br><span class="line">    StringBuilder sb &#x3D; new StringBuilder(&quot;&quot;);</span><br><span class="line">    sb.append(a).append(&quot;x&quot;);</span><br><span class="line">    a &#x3D; sb.toString();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>由此可以看出for循环中不断的创建对象，消耗内存和时间，效率低下，因此使用StringBuilder更高效。</p>
- 
-      <!-- reward -->
-      
-    </div>
-    
 
     <!-- copyright -->
     
@@ -179,15 +159,7 @@
   <time datetime="2020-08-03T08:45:04.000Z" itemprop="datePublished">2020-08-03</time>
 </a>    
     </div>
-      
-    <div class="article-entry" itemprop="articleBody">
        
-  <p><img src="/2020/08/03/20200803002/test.png" alt="例子"></p>
- 
-      <!-- reward -->
-      
-    </div>
-    
 
     <!-- copyright -->
     
