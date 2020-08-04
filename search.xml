@@ -7,7 +7,7 @@
 ]]></content>
   </entry>
   <entry>
-    <title>String和StringBuilder哪个更高效</title>
+    <title>No.001 String和StringBuilder哪个更高效</title>
     <url>/2020/08/04/20200804001/</url>
     <content><![CDATA[<blockquote>
 <p>String和StringBuilder做拼接时，我们最初可能认为String的效率低，做字符串拼接要用StringBuilder，其实经过jdk的不断升级，对于字符串的操作也进行了优化。</p>
